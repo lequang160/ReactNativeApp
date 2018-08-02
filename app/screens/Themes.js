@@ -3,6 +3,8 @@ import { ScrollView, StatusBar,StyleSheet } from 'react-native';
 import { ListItem, Separator } from '../components/List';
 import EStyleSheets from 'react-native-extended-stylesheet';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {changeThemeColor} from '../components/actions/themes'
 
 const styles =  EStyleSheets.create({
     $blue: '$primaryBlue',
@@ -16,9 +18,11 @@ class Themes extends Component {
    
     static propTypes = {
         navigation : PropTypes.object,
+        dispatch: PropTypes.func,
     };
 
     handleItemThemes= (color) =>{
+        this.props.dispatch(changeThemeColor(color));
         this.props.navigation.goBack(null);
     };
 
@@ -31,7 +35,6 @@ class Themes extends Component {
                     text={'Blue'}
                     selected
                     checkmark={false}
-
                     onPress = {()=>this.handleItemThemes(styles.$blue)}
                     iconBackground = {styles.$blue}
                 />
@@ -40,7 +43,6 @@ class Themes extends Component {
                     text={'Green'}
                     selected
                     checkmark={false}
-
                     onPress = {()=>this.handleItemThemes(styles.$green)}
                     iconBackground = {styles.$green}
                 />
@@ -49,7 +51,6 @@ class Themes extends Component {
                     text={'Orange'}
                     selected
                     checkmark={false}
-
                     onPress = {()=>this.handleItemThemes(styles.$orange)}
                     iconBackground = {styles.$orange}
                 />
@@ -58,7 +59,6 @@ class Themes extends Component {
                     text={'Purple'}
                     selected
                     checkmark={false}
-
                     onPress = {()=>this.handleItemThemes(styles.$purple)}
                     iconBackground = {styles.$purple}
                 />
@@ -69,4 +69,4 @@ class Themes extends Component {
     }
 }
 
-export default Themes;
+export default connect()(Themes);

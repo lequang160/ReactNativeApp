@@ -25,6 +25,7 @@ class Home extends Component {
     amount: PropTypes.number,
     conversionRate : PropTypes.number,
     lastDateUpdate: PropTypes.object,
+    primaryColor: PropTypes.string,
 
   };
   handlePressBaseCurrency = () => {
@@ -47,13 +48,13 @@ class Home extends Component {
   render() {
     let quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
     return (
-      <Container>
+      <Container backgroundColor = {this.props.primaryColor}>
         <StatusBar translucent={false} barStyle='light-content'></StatusBar>
         <Header
           onPress={this.handlePressOptions}
         />
         <KeyboardAvoidingView behavior='padding'>
-          <Logo />
+          <Logo  tintColor = {this.props.primaryColor}/>
           <InputWithButton
             buttonText={this.props.baseCurrency}
             onPress={this.handlePressBaseCurrency}
@@ -95,9 +96,7 @@ const mapStateToProps = (state) =>{
     amount,
     conversionRate : rates[quoteCurrency] || 0,
     lastDateUpdate : lastDateUpdate,
-
+    primaryColor : state.theme.primaryColor,
   };
 };
-
-
 export default connect(mapStateToProps)(Home);
