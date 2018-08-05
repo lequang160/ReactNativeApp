@@ -5,9 +5,6 @@ import PropTypes from 'prop-types';
 import {changeBaseCurrency, changeQuoteCurrency} from '../components/actions/currencies';
 import {connect} from 'react-redux';
 
-import currencies from '../components/data/currencies'
-
-const TEMP_CURRENT_CURRENCY = 'CAD';
 
 class CurrencyList extends Component {
     static propTypes = {
@@ -16,6 +13,7 @@ class CurrencyList extends Component {
         baseCurrency: PropTypes.string,
         quoteCurrency: PropTypes.string,
         primaryColor: PropTypes.string,
+        data: PropTypes.array,
 
     };
 
@@ -42,7 +40,7 @@ class CurrencyList extends Component {
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle='default' translucent={false} />
                 <FlatList
-                    data={currencies}
+                    data={this.props.data}
                     renderItem={({ item }) => (<ListItem 
                         text = {item}
                         onPress = {() => this.onHandlePress(item)}
@@ -59,14 +57,24 @@ class CurrencyList extends Component {
 }
 const mapStateToProp = (state) =>
 {
+    let data = [];
+    let rates = state.currencies.conversions[state.currencies.baseCurrency].rates;
+
+    for(x in rates)
+    {
+        data.push(x);
+    }
 
     return {
         baseCurrency : state.currencies.baseCurrency,
         quoteCurrency : state.currencies.quoteCurrency,
         primaryColor : state.theme.primaryColor,
+        data : data,
     };
 
 };
+
+
 
 
 export default connect(mapStateToProp)(CurrencyList) ;

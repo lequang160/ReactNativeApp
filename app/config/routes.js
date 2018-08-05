@@ -1,57 +1,76 @@
-import {createStackNavigator} from 'react-navigation';
-import {StatusBar} from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
-
+import Splash from '../screens/Splash';
 import Home from '../screens/Home';
 import CurrencyList from '../screens/CurrencyList';
 import Options from '../screens/Options';
 import Themes from '../screens/Themes';
+
+
 const HomeStack = createStackNavigator({
-    Home:{
-        screen : Home,
-        navigationOptions:{
-            header : () => null,
+    Home: {
+        screen: Home,
+        navigationOptions: {
+            header: () => null,
         },
     },
-    Options:{
-        screen : Options,
-        navigationOptions: ({navigation}) =>({
-            headerTitle : navigation.state.params.title,
+    Options: {
+        screen: Options,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: navigation.state.params.title,
         }),
     },
-    Themes:{
-        screen : Themes,
-        navigationOptions: ({navigation}) =>({
-            headerTitle : navigation.state.params.title,
+    Themes: {
+        screen: Themes,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: navigation.state.params.title,
         }),
     },
-},{
-  mode : 'model',
+}, {
+        mode: 'model',
 
-});
+    });
 
 const CurrencyListStack = createStackNavigator({
     CurrencyList: {
-        screen : CurrencyList,
-        navigationOptions: ({navigation}) =>({
-            headerTitle : navigation.state.params.title,
+        screen: CurrencyList,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: navigation.state.params.title,
         }),
     },
-} );
-export default createStackNavigator({
-    Home :{
-        screen : HomeStack,
-        navigationOptions:{
-            header : () => null,
+});
+
+const SplashStack = createStackNavigator({
+    Splash: {
+        screen: Splash,
+        navigationOptions: {
+            header: () => null,
         },
     },
-    CurrencyList:{
-        screen : CurrencyListStack
+});
+
+const RootStack = createStackNavigator({
+    Splash: {
+        screen: SplashStack,
+        navigationOptions: {
+            header: () => null,
+        },
+    },
+    Home: {
+        screen: HomeStack,
+        navigationOptions: {
+            header: () => null,
+        },
+    },
+    CurrencyList: {
+        screen: CurrencyListStack
     },
 },
-{
-    mode : 'modal',
-    headerMode: 'none'
-    // cardStyle : {paddingTop : StatusBar.currentHeight}
-},
+    {
+        mode: 'modal',
+        headerMode: 'none'
+        // cardStyle : {paddingTop : StatusBar.currentHeight}
+    },
 );
+
+export default RootStack;

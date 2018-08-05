@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import store from './config/store';
 
 
+
+
+
 EStyleSheet.build({
   $primaryBlue: '#4F6D7A',
   $white: '#ffffff',
@@ -24,5 +27,8 @@ export default () => (
     </AlertProvider>
   </Provider>
 );
+
+
+
 
 

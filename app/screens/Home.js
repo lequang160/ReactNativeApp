@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Text, KeyboardAvoidingView } from 'react-native';
+import {  StatusBar,  KeyboardAvoidingView } from 'react-native';
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
 import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Button';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
-import { swapCurrency, changeCurrencyAmount } from '../components/actions/currencies';
+import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../components/actions/currencies';
 import {connect} from 'react-redux';
 
-const TEMP_CONVERSION_RATE = 0.7974;
-const TEMP_CONVERSION_DATE = new Date();
 
 
 
@@ -28,6 +26,9 @@ class Home extends Component {
     primaryColor: PropTypes.string,
 
   };
+  componentWillMount(){
+    this.props.dispatch(getInitialConversion(this.props.baseCurrency));
+  }
   handlePressBaseCurrency = () => {
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency', type : 'base' });
   }
@@ -83,6 +84,9 @@ class Home extends Component {
     );
   }
 }
+ 
+
+
 const mapStateToProps = (state) =>{
   const baseCurrency = state.currencies.baseCurrency;
   const quoteCurrency = state.currencies.quoteCurrency;
